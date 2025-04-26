@@ -1,0 +1,12 @@
+# compose-precedence.yaml
+services:
+  tester:
+    image: alpine:latest
+    # Polecenie wyświetla tylko zmienną MY_VAR i kończy pracę
+    command: sh -c 'echo "--- Test Pierwszeństwa ---"; printenv | grep MY_VAR; echo "------------------------"'
+    # Wczytaj zmienne z pliku .env
+    env_file:
+      - precedence.env
+    # Zdefiniuj tę samą zmienną tutaj, z inną wartością
+    environment:
+      - MY_VAR=Wartosc_z_bloku_environment
