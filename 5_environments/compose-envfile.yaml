@@ -1,0 +1,12 @@
+services:
+  file_tester:
+    image: alpine:latest
+    # Polecenie wyświetla tylko interesujące nas zmienne
+    command: sh -c 'echo "--- Środowisko z env_file ---"; printenv | grep -E "^(Z_PLIKU_ENV|ZMIENNA_WSPOLNA|NOWA_ZMIENNA)="; echo "----------------------------"; sleep infinity'
+    env_file:
+      - path: vars1.env
+        required: true # Ten plik jest wymagany (domyślnie)
+      - path: vars2_opcjonalny.env
+        required: false # Ten plik jest opcjonalny, Compose nie zgłosi błędu, jeśli go nie ma
+      - path: nieistniejacy.env
+        required: false # Ten plik jest opcjonalny i nie istnieje, zostanie zignorowany

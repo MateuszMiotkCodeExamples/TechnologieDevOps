@@ -1,0 +1,15 @@
+services:
+  tester:
+    image: alpine:latest
+    # Polecenie wyświetla tylko interesujące nas zmienne
+    command: sh -c 'echo "--- Środowisko testera ---"; printenv | grep -E "^(DEBUG_MODE|API_KEY|Z_POWLOKI|INTERPOLOWANA)="; echo "--------------------------"; sleep infinity'
+    environment:
+      # Bezpośrednie przypisanie (składnia mapowania)
+      DEBUG_MODE: "true"
+      # Bezpośrednie przypisanie (składnia mapowania)
+      API_KEY: "abcdef12345"
+      # Przekazanie zmiennej z powłoki (brak ostrzeżenia, jeśli nieustawiona)
+      Z_POWLOKI:
+      # Interpolacja zmiennej z powłoki lub pliku .env (ostrzeżenie, jeśli nieustawiona)
+      # Użyto wartości domyślnej ': -brak' na potrzeby demonstracji
+      INTERPOLOWANA: ${MOJA_ZMIENNA:-brak}

@@ -1,0 +1,6 @@
+services:
+  runner:
+    image: alpine:latest
+    # Polecenie po prostu wyświetla interesujące zmienne i kończy działanie
+    command: sh -c 'echo "--- Środowisko run ---"; printenv | grep -E "^(TYMCZASOWA|Z_POWLOKI_RUN)="; echo "--------------------"'
+    # W tym pliku celowo nie ustawiamy zmiennych przez 'environment' ani 'env_file'
