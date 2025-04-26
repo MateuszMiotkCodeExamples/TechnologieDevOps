@@ -1,0 +1,36 @@
+services:
+  web:
+    image: alpine:latest
+    # Ta usługa uruchomi się dopiero, gdy redis_sim się uruchomi, a db_sim będzie 'healthy'
+    command: >
+      sh -c 'echo ">>> WEB: Wszystkie zależności spełnione, startuję."; sleep infinity'
+    depends_on:
+      db_sim:
+        # Czekaj, aż db_sim będzie 'healthy'
+        condition: service_healthy
+        # Jeśli db_sim zostanie zrestartowany, zrestartuj również web
+        restart: true
+      redis_sim:
+        # Czekaj, aż redis_sim się uruchomi (stan 'started')
+        condition: service_started
+
+  redis_sim:
+    image: alpine:latest
+    # Ta usługa jest gotowa od razu po uruchomieniu
+    command: >
+      sh -c 'echo ">>> REDIS_SIM: Szybki start."; sleep infinity'
+    # Brak healthcheck, wystarczy condition: service_started dla zależności 'web'
+
+  db_sim:
+    image: alpine:latest
+    # Symulacja usługi, która potrzebuje czasu na inicjalizację
+    # Po 5 sekundach tworzy plik /tmp/healthy, sygnalizując gotowość
+    command: >
+      sh -c 'echo ">>> DB_SIM: Startuję..."; sleep 5; echo ">>> DB_SIM: Tworzę znacznik gotowości..."; touch /tmp/healthy; echo ">>> DB_SIM: Jestem gotowy (healthy)."; sleep infinity'
+    healthcheck:
+      # Prosta kontrola: sprawdź, czy plik /tmp/healthy istnieje
+      test: ["CMD-SHELL", "test -f /tmp/healthy"]
+      interval: 1s       # Sprawdzaj często (co sekundę) na potrzeby demo
+      retries: 10        # Daj czas na sleep 5 + utworzenie pliku
+      start_period: 0s   # Zacznij sprawdzać od razu
+      timeout: 1s
