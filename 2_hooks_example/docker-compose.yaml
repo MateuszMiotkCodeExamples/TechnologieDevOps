@@ -1,0 +1,32 @@
+# docker-compose.yml
+version: '3.9' # Lub nowsza, wspierająca polecenia cyklu życia
+
+services:
+  monitored_app:
+    image: alpine:latest
+    # Uruchamiamy główny proces jako użytkownik '1001' (non-root)
+    user: "1001"
+    # Montujemy wolumin na logi aplikacji
+    volumes:
+      - log_data:/var/log/app
+    # Proste polecenie, aby kontener działał w tle
+    command: ["sleep", "infinity"]
+
+    # Polecenia wykonywane po uruchomieniu kontenera
+    post_start:
+      # To polecenie jest uruchamiane jako root (domyślnie lub przez 'user: root')
+      # Tworzy katalog na logi (jeśli nie istnieje) i ustawia jego właściciela
+      # na użytkownika '1001', aby główny proces mógł w nim zapisywać.
+      - command: sh -c 'mkdir -p /var/log/app && chown 1001:1001 /var/log/app'
+        user: "root" # Jawne określenie użytkownika root dla tej operacji
+
+    # Polecenia wykonywane przed zatrzymaniem kontenera
+    pre_stop:
+      # To polecenie jest uruchamiane jako użytkownik zdefiniowany dla usługi ('1001')
+      # Zapisuje komunikat o zatrzymaniu do pliku w przygotowanym katalogu logów.
+      - command: sh -c 'echo "[$(date)] Service shutting down gracefully." >> /var/log/app/lifecycle.log'
+        # Domyślnie używany jest użytkownik usługi (user: 1001), który ma prawo zapisu
+        # do /var/log/app dzięki działaniu polecenia post_start.
+
+volumes:
+  log_data: {} # Definicja nazwanego woluminu na logi
