@@ -1,0 +1,24 @@
+# compose.yaml (Przykład 1 - Minimalistyczny)
+services:
+  # Usługa z profilem 'frontend'
+  frontend_app:
+    image: alpine
+    command: sh -c 'echo "Frontend działa"; sleep infinity'
+    profiles: [frontend]
+
+  # Usługa z profilem 'debug', zależy od db_service
+  debugger:
+    image: alpine
+    command: sh -c 'echo "Debugger działa, potrzebuje DB"; sleep infinity'
+    depends_on: [db_service]
+    profiles: [debug]
+
+  # Usługa zawsze włączona
+  backend_app:
+    image: alpine
+    command: sh -c 'echo "Backend działa"; sleep infinity'
+
+  # Usługa zawsze włączona (zależność)
+  db_service:
+    image: alpine
+    command: sh -c 'echo "Usługa DB działa"; sleep infinity'

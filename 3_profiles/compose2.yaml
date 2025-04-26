@@ -1,0 +1,21 @@
+# compose2.yaml (Przykład 2 - Minimalistyczny)
+services:
+  # Usługa zawsze włączona
+  app_main:
+    image: alpine
+    command: sh -c 'echo "Główna aplikacja działa"; sleep infinity'
+
+  # Usługa zawsze włączona (zależność)
+  db_main:
+    image: alpine
+    command: sh -c 'echo "Główna DB działa"; sleep infinity'
+
+  # Usługa jednorazowa z profilem 'tools'
+  db_tool:
+    image: alpine
+    # Symulacja jednorazowego polecenia
+    command: sh -c 'echo "Uruchamianie narzędzia DB na db_main"; sleep 5'
+    depends_on:
+      - db_main
+    profiles:
+      - tools
