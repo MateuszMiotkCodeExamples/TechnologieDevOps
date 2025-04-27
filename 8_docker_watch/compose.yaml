@@ -1,0 +1,18 @@
+# watch-simple/compose.yaml
+services:
+  watcher_service:
+    build: .
+    develop:
+      watch:
+        # Akcja sync: Synchronizuj zmiany w kodzie Pythona
+        - action: sync
+          path: ./src
+          target: /app/src
+        # Akcja sync+restart: Synchronizuj zmiany w konfiguracji i zrestartuj usługę
+        - action: sync+restart
+          path: ./config
+          target: /app/config
+        # Akcja rebuild: Przebuduj obraz, jeśli zmienią się zależności
+        - action: rebuild
+          path: ./requirements.txt
+          # target nie jest potrzebny dla rebuild
