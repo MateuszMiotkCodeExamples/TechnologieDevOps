@@ -1,0 +1,13 @@
+services:
+  a:
+    image: service_a # Nazwa obrazu wynikowego, używana w FROM w b.Dockerfile
+    build:
+      context: .
+      dockerfile: a.Dockerfile
+  b:
+    image: service_b # Nazwa obrazu wynikowego usługi B
+    build:
+      context: .
+      dockerfile: b.Dockerfile
+    depends_on:
+         - a

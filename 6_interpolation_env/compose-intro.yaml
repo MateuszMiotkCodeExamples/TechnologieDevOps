@@ -1,0 +1,10 @@
+# compose-intro.yaml
+services:
+  intro_tester:
+    # Użyj zmiennej do określenia tagu obrazu
+    image: alpine:${MY_ALPINE_TAG}
+    # Polecenie tylko wyświetli informację i zakończy działanie
+    command: >
+      sh -c 'echo "Użyty tag Alpine: ${MY_ALPINE_TAG}"'
+    # Uwaga: Interpolacja ${MY_ALPINE_TAG} w 'image' dzieje się przed startem.
+    # Interpolacja w 'command' również użyje tej samej wartości.

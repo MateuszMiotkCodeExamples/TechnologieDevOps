@@ -1,0 +1,11 @@
+services:
+  a:
+    build:
+      context: . # Kontekst budowania to bieżący katalog
+      dockerfile: Dockerfile # Nazwa pliku Dockerfile
+      target: service_a # Buduj etap service_a
+  b:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      target: service_b # Buduj etap service_b
