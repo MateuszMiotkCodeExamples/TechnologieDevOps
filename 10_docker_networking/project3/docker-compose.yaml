@@ -1,0 +1,14 @@
+version: '3.8'
+
+services:
+  monitor:
+    image: alpine:latest
+    container_name: monitoring_service
+    command: ["sleep", "infinity"]
+    networks:
+      - external_net # Podłączamy do sieci zdefiniowanej poniżej
+
+networks:
+  external_net: # Logiczna nazwa sieci w Compose
+    name: moja-zewnetrzna-siec # Rzeczywista nazwa istniejącej sieci w Docker
+    external: true # Oznaczamy, że sieć jest zarządzana zewnętrznie

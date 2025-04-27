@@ -1,0 +1,17 @@
+version: '3.8' # Lub nowsza wersja składni Compose
+
+services:
+  webapp:
+    build: ./webapp # Ścieżka do katalogu z Dockerfile
+    ports:
+      - "5001:5000" # Mapowanie portu hosta na port kontenera
+    environment:
+      - FLASK_APP=app.py
+      - FLASK_RUN_PORT=5000
+    # Nie ma potrzeby definiowania sieci - użyta zostanie domyślna
+    # Nie ma potrzeby używania 'links' - komunikacja po nazwie usługi
+
+  cache:
+    image: redis:alpine # Używamy obrazu Redis
+    # Nie ma potrzeby mapowania portów, jeśli dostęp jest tylko z webapp
+    # Nie ma potrzeby definiowania sieci - użyta zostanie domyślna

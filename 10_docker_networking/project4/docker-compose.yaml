@@ -1,0 +1,15 @@
+version: '3.8' # Links działają też w starszych wersjach
+
+services:
+  web:
+    image: alpine:latest # Użyjemy Alpine do testu ping
+    container_name: web_service_links
+    command: ["sleep", "infinity"]
+    links:
+      - "database_service:baza" # Link do usługi 'database_service' pod aliasem 'baza'
+
+  database_service: # Nazwa usługi
+    image: redis:alpine
+    container_name: db_service_links
+
+# Nie definiujemy sieci, użyta zostanie domyślna

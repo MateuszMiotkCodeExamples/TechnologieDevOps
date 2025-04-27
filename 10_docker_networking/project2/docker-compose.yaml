@@ -1,0 +1,30 @@
+version: '3.8'
+
+services:
+  proxy:
+    image: nginx:alpine # Prosty serwer proxy/web
+    container_name: proxy_service
+    networks:
+      - frontend # Tylko w sieci frontend
+    ports:
+      - "8080:80" # Udostępniamy Nginx na porcie 8080 hosta
+
+  app:
+    image: alpine:latest # Prosty obraz Alpine do testów ping
+    container_name: app_service
+    command: ["sleep", "infinity"] # Utrzymujemy kontener działający
+    networks:
+      - frontend # W sieci frontend
+      - backend  # Oraz w sieci backend
+
+  db:
+    image: redis:alpine # "Baza danych" (Redis)
+    container_name: db_service
+    networks:
+      - backend # Tylko w sieci backend
+
+networks:
+  frontend: # Definicja sieci frontend
+    driver: bridge # Domyślny sterownik
+  backend:  # Definicja sieci backend
+    driver: bridge
