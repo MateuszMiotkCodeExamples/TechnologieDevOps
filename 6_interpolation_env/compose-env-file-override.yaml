@@ -1,0 +1,6 @@
+services:
+  override_tester:
+    image: alpine:latest
+    environment:
+      - SOURCE=${CONFIG_SOURCE}
+    command: sh -c 'echo "SOURCE=${SOURCE}"; sleep infinity'

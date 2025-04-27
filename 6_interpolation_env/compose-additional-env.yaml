@@ -1,0 +1,8 @@
+# compose-additional-env.yaml
+services:
+  additional_tester:
+    image: alpine:latest
+    environment:
+      # Interpoluj wartość z pliku .env do zmiennej środowiskowej kontenera
+      - DEBUG_STATUS=${MY_DEBUG_FLAG}
+    command: sh -c 'echo "--- Demo Additional .env ---"; printenv | grep DEBUG_STATUS; echo "----------------------------"; sleep infinity'

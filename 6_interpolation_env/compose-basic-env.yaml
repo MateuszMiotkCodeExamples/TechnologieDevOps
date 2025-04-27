@@ -1,0 +1,8 @@
+# compose-basic-env.yaml
+services:
+  basic_env_tester:
+    image: alpine:latest
+    environment:
+      # Przekaż przetworzoną zmienną POCHODNA_WARTOSC do środowiska kontenera
+      - FINAL_VALUE=${POCHODNA_WARTOSC}
+    command: sh -c 'echo "--- Demo Basic .env ---"; printenv | grep FINAL_VALUE; echo "-----------------------"; sleep infinity'

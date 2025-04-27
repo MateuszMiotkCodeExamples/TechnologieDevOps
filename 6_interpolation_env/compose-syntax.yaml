@@ -1,21 +1,19 @@
-# compose-syntax.yaml
 services:
   syntax_tester:
     image: alpine:latest
     environment:
-      # Bezpośrednie lub domyślne, jeśli VAR_A nieustawione/puste w powłoce
-      VAR_A_DEFAULT_NONEMPTY: "${VAR_A:-Wartość domyślna A}"
-      # Bezpośrednie lub domyślne, jeśli VAR_B nieustawione w powłoce
-      VAR_B_DEFAULT_UNSET: "${VAR_B-Wartość domyślna B}"
-      # Wymagane niepuste, błąd jeśli VAR_C nieustawione/puste w powłoce
-      VAR_C_REQUIRED_NONEMPTY: "${VAR_C:?Błąd: VAR_C brak lub pusta}"
-      # Wymagane ustawione, błąd jeśli VAR_D nieustawione w powłoce
-      VAR_D_REQUIRED_UNSET: "${VAR_D?Błąd: VAR_D nie ustawiona}"
-    # Polecenie wykona się tylko, jeśli wymagane zmienne są ustawione
-    command: >
-      sh -c 'echo "--- Demo Składni ---";
-               echo "A (domyślna dla pustej): $VAR_A_DEFAULT_NONEMPTY";
-               echo "B (domyślna dla nieustawionej): $VAR_B_DEFAULT_UNSET";
-               echo "C (wymagana niepusta): $VAR_C_REQUIRED_NONEMPTY";
-               echo "D (wymagana ustawiona): $VAR_D_REQUIRED_UNSET";
-               echo "--------------------"; sleep infinity'
+      # Zmiana nazw zmiennych na krótsze dla przejrzystości
+      VAR_A: "${VAR_A:-Wartość domyślna A}"
+      VAR_B: "${VAR_B-Wartość domyślna B}"
+      VAR_C: "${VAR_C:?Błąd: VAR_C brak lub pusta}"
+      VAR_D: "${VAR_D?Błąd: VAR_D nie ustawiona}"
+    command: |
+      sh -c 'echo "--- Demo Składni ---" &&
+             echo "A (domyślna dla pustej): $VAR_A" &&
+             echo "B (domyślna dla nieustawionej): $VAR_B" &&
+             echo "C (wymagana niepusta): $VAR_C" &&
+             echo "D (wymagana ustawiona): $VAR_D" &&
+             echo "--- Sprawdzenie wszystkich zmiennych ---" &&
+             env | grep VAR_ &&
+             echo "--------------------" &&
+             sleep infinity'
