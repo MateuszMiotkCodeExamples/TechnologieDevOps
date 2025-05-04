@@ -2,6 +2,6 @@
 services:
   webapp:
     extends:
-      file: ../commos/common.yaml # Wskazuje na plik w katalogu nadrzędnym/sąsiednim
+      file: ../commons/common.yaml # Wskazuje na plik w katalogu nadrzędnym/sąsiednim
       service: base
-    command: ["sh", "-c", "echo COMMON_VAR is: $COMMON_VAR"]
+    command: ["sh", "-c", "env | grep COMMON"]
