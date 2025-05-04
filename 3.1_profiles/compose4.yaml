@@ -1,0 +1,29 @@
+# compose3.yaml (Przykład 3 - Minimalistyczny, przypadek błędu)
+services:
+  # Zawsze włączona
+  main_web:
+    image: alpine
+    command: sh -c 'echo "Główna strona Web działa"; sleep infinity'
+
+  # Profil 'dev', potrzebuje DB
+  dev_backend:
+    image: alpine
+    command: sh -c 'echo "Backend Dev działa"; sleep infinity'
+    profiles: ["dev"]
+    depends_on:
+      - db_dev
+
+  # Profil 'dev' (DB)
+  db_dev:
+    image: alpine
+    command: sh -c 'echo "DB Dev działa"; sleep infinity'
+    # Dodaj profil 'debug', aby debug_tool mógł go niejawnie uruchomić
+    profiles: [ "debug", "dev" ]
+
+  # Profil 'debug', potrzebuje DB (która potrzebuje profilu 'dev')
+  debug_tool:
+    image: alpine
+    command: sh -c 'echo "Narzędzie Debug działa, potrzebuje DB"; sleep infinity'
+    profiles: ["debug"]
+    depends_on:
+      - db_dev # Ta baza danych wymaga profilu 'dev'
