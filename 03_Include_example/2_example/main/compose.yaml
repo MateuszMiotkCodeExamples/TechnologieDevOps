@@ -1,0 +1,13 @@
+# main/compose.yaml
+include:
+  - path: # Użycie 'path' do podania listy plików
+      - ../included/compose.yaml # Plik bazowy
+      - ../override-b.yaml     # Plik nadpisujący dla tego konkretnego 'include'
+
+# Reszta pliku bez zmian (np. serviceA)
+services:
+  serviceA:
+    image: alpine:latest
+    command: ["echo", "Service A running"]
+    depends_on:
+      - serviceB

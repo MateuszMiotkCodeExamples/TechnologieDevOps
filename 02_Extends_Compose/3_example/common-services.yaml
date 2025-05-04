@@ -1,0 +1,8 @@
+# common-services.yaml
+services:
+  base-service:
+    image: alpine:latest
+    environment:
+      - COMMON_SETTING=true
+      - LOG_LEVEL=info
+    command: ["echo", "Running base configuration"]

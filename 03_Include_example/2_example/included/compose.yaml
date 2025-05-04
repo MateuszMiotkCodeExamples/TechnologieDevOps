@@ -1,0 +1,8 @@
+# included/compose.yaml
+services:
+  serviceB:
+    image: alpine:latest
+    command: ["sh", "-c", "echo Service B running!; sleep 3600"]
+    # Ewentualne ścieżki w tym pliku, np. dla volumes:
+    # volumes:
+    #   - ./data:/data # Byłyby rozwiązywane względem katalogu 'included'

@@ -1,0 +1,17 @@
+# compose.yaml - Prosty przykład do publikacji jako artefakt OCI
+version: '3.8' # Opcjonalnie, ale dobra praktyka
+
+services:
+  web:
+    image: nginx:alpine # Standardowy obraz Nginx
+    ports:
+      - "8080:80" # Mapowanie portu hosta 8080 na port 80 kontenera
+    environment:
+      - NGINX_HOST=example.com # Przykładowa zmienna środowiskowa
+
+  checker:
+    image: alpine:latest # Standardowy obraz Alpine Linux
+    # Prosta komenda symulująca sprawdzanie statusu
+    command: ["sh", "-c", "echo 'Checking status...'; sleep 10; echo 'Status OK.'"]
+    environment:
+      - CHECK_INTERVAL=10 # Przykładowa zmienna środowiskowa

@@ -1,0 +1,6 @@
+# team2/compose.yaml
+services:
+  service2:
+    image: nginx:alpine
+    ports:
+      - "80" # Tylko port wewnętrzny domyślnie

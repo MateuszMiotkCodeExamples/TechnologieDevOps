@@ -1,0 +1,9 @@
+# main/compose.yaml
+include:
+  - ../team1/compose.yaml
+  - ../team2/compose.yaml
+
+services:
+  main_service:
+    image: alpine:latest
+    command: ["echo", "Main Service"]

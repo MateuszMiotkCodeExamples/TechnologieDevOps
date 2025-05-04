@@ -1,0 +1,10 @@
+# main/compose.yaml
+include:
+  - ../included/compose.yaml # Wskazuje ścieżkę do pliku do dołączenia
+
+services:
+  serviceA:
+    image: alpine:latest
+    command: ["sh", "-c", "echo Service A running!; sleep 3600"]
+    depends_on:
+      - serviceB # Można bezpośrednio użyć serviceB, jakby był zdefiniowany tutaj

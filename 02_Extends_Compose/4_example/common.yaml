@@ -1,0 +1,11 @@
+# common.yaml
+services:
+  # Definicja wspólnej konfiguracji dla aplikacji
+  common-app-config:
+    image: alpine:latest # Wspólny obraz bazowy
+    environment:
+      - CONFIG_FILE_PATH=/app/config.ini
+      - API_KEY=xxxyyy
+      - LOG_LEVEL=info
+    working_dir: /app # Wspólny katalog roboczy
+    restart: always # Wspólna polityka restartu

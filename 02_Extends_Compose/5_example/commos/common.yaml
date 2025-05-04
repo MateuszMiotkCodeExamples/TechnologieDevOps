@@ -1,0 +1,6 @@
+# commons/common.yaml
+services:
+  base:
+    image: alpine:latest
+    env_file:
+      - ./config.env # Ścieżka względna do pliku w tym samym katalogu co common.yaml

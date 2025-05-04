@@ -1,0 +1,24 @@
+# compose.yaml - Przykład integracji Docker Model Runner demonstrujący mechanizm
+version: '3.9' # Wersja wspierająca potrzebne funkcje
+
+services:
+  # Usługa aplikacji, która "udaje", że będzie korzystać z modelu
+  app_using_model:
+    # Użycie prostego obrazu alpine do demonstracji wstrzykiwania zmiennych
+    image: alpine:latest
+    # Komenda, która wyświetli otrzymane zmienne środowiskowe od dostawcy
+    command: sh -c 'echo "Otrzymano zmienne od dostawcy modelu (ai_model_provider):"; printenv | grep AI_MODEL_PROVIDER_; echo "Aplikacja działałaby dalej, używając AI_MODEL_PROVIDER_URL..."; sleep infinity'
+    depends_on:
+      - ai_model_provider # Deklaracja zależności od usługi dostawcy modelu
+
+  # Usługa definiująca dostawcę modelu AI
+  ai_model_provider:
+    provider: # Atrybut wskazujący, że to usługa typu provider
+      type: model # Typ dostawcy: model AI
+      options:
+        # Nazwa/identyfikator modelu do uruchomienia przez Model Runner.
+        # Może wymagać zmiany na model dostępny w Twojej instalacji!
+        # 'ai/smollm2' jest tu użyte jako przykład.
+        model: ai/smollm2
+        # Można tu dodać inne opcje specyficzne dla modelu, np.:
+        # device: cpu # Jawne żądanie użycia CPU

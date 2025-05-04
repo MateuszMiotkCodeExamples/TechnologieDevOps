@@ -1,0 +1,18 @@
+# compose.yaml
+services:
+  # Usługa dziedzicząca z pliku zewnętrznego i nadpisująca
+  web:
+    extends:
+      file: common-services.yaml # Zakładamy istnienie pliku z poprzedniego przykładu
+      service: base-service
+    ports: # Dodanie konfiguracji portów
+      - "80:80"
+    environment: # Nadpisanie i dodanie zmiennych
+      - LOG_LEVEL=warning
+      - DEBUG=true
+    cpu_shares: 5 # Dodanie opcji zasobów
+
+  # Usługa dziedzicząca z innej usługi w tym samym pliku
+  important_web:
+    extends: web # Rozszerza usługę 'web' zdefiniowaną powyżej
+    cpu_shares: 10 # Nadpisuje 'cpu_shares' odziedziczone z 'web'

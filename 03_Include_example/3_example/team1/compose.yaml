@@ -1,0 +1,5 @@
+# team1/compose.yaml
+services:
+  service1:
+    image: alpine:latest
+    command: ["echo", "Service 1 Base from Team 1"]

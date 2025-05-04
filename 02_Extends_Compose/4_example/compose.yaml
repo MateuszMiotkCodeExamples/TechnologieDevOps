@@ -1,0 +1,23 @@
+# compose.yaml
+services:
+  webapp:
+    extends:
+      file: common.yaml
+      service: common-app-config # Rozszerza wspólną konfigurację
+    command: ["echo", "Running Webapp"] # Specyficzna komenda dla webapp
+    ports: # Specyficzne porty dla webapp
+      - "8080:80"
+      # depends_on: # (Uwaga: depends_on nie jest dziedziczone przez extends)
+      # - queue
+      # - db
+
+  queue_worker:
+    extends:
+      file: common.yaml
+      service: common-app-config # Rozszerza tę samą wspólną konfigurację
+    command: ["echo", "Running Worker"] # Specyficzna komenda dla workera
+    environment: # Dodatkowe/nadpisane zmienne dla workera
+      LOG_LEVEL: debug # Nadpisuje LOG_LEVEL
+      QUEUE_NAME: tasks
+      # depends_on:
+      # - queue

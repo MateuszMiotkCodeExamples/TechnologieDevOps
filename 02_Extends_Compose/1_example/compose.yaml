@@ -1,0 +1,11 @@
+# compose.yaml
+services:
+  my-service: # Nazwa usługi w bieżącym projekcie
+    extends:
+      file: common-services.yaml # Wskazuje plik źródłowy
+      service: base-service # Wskazuje usługę do rozszerzenia
+    # Lokalne nadpisania / dodatki
+    environment:
+      - LOG_LEVEL=debug # Nadpisuje wartość z base-service
+      - MY_SETTING=active # Dodaje nową zmienną
+    command: ["echo", "Running my-service with extended config"] # Nadpisuje komendę

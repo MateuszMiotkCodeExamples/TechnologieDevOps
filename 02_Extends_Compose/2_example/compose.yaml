@@ -1,0 +1,14 @@
+# compose.yaml
+services:
+  base-app: # Usługa bazowa
+    image: alpine:latest
+    environment:
+      - ROLE=base
+    command: ["sleep", "3600"] # Domyślna komenda
+
+  extended-app: # Usługa rozszerzająca
+    extends: base-app # Rozszerza 'base-app' z tego samego pliku
+    environment:
+      - ROLE=extended # Nadpisuje zmienną ROLE
+      - EXTRA=true # Dodaje zmienną EXTRA
+    command: ["echo", "Extended App Running"] # Nadpisuje komendę

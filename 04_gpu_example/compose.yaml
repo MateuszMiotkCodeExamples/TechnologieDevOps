@@ -1,0 +1,11 @@
+services:
+  test:
+    image: nvidia/cuda:12.3.1-base-ubuntu20.04 # Przykład obrazu z obsługą CUDA
+    command: nvidia-smi # Komenda do wyświetlenia informacji o GPU w kontenerze
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: 1 # Żądanie dostępu do jednego GPU
+              capabilities: [gpu] # Wymagana zdolność

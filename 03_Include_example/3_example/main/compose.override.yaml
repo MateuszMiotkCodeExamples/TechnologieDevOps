@@ -1,0 +1,12 @@
+# main/compose.override.yaml
+services:
+  service1: # Nadpisuje usługę service1 (z team1)
+    command: ["echo", "Service 1 OVERRIDDEN by global override"]
+    environment:
+      - TEAM1_DEBUG=true
+
+  service2: # Nadpisuje usługę service2 (z team2)
+    ports:
+      - "9999:80" # Zmienia mapowanie portu
+    environment:
+      - NGINX_LOG=stdout

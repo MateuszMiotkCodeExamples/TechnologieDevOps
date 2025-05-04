@@ -1,0 +1,4 @@
+# override-b.yaml
+services:
+  serviceB:
+    command: ["echo", "Service B overridden via inline override file"]
