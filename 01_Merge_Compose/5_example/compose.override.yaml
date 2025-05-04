@@ -1,0 +1,5 @@
+services:
+  datahandler:
+    volumes:
+      - ./source_override:/data2 # Nadpisuje montowanie do /data2
+      - ./source3:/data3 # Dodaje nowe montowanie

@@ -1,0 +1,19 @@
+# compose.prod.yaml
+services:
+  webapp:
+    # Brak mapowania portów, zakładamy użycie np. load balancera
+    # Można dodać np. repliki: deploy: { replicas: 3 }
+    environment:
+      - NGINX_HOST=prod.example.com
+      - NGINX_PORT=80
+  api:
+    environment:
+      - DEBUG=false
+      - DB_HOST=db_internal_address
+    # db:
+    # Można dodać konfigurację woluminów dla danych produkcyjnych
+    # volumes:
+    #   - db_data:/var/lib/postgresql/data
+
+# volumes: # Definicja woluminu, jeśli jest używany
+#   db_data:

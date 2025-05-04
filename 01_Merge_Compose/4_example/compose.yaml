@@ -1,0 +1,7 @@
+services:
+  app:
+    image: alpine:latest
+    command: ["env"] # Wyświetli zmienne środowiskowe
+    environment:
+      - COMMON_VAR=base_value
+      - OVERRIDE_VAR=base_value

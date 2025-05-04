@@ -1,0 +1,21 @@
+# compose.yaml
+services:
+  webapp:
+    image: nginx:alpine # Użycie standardowego obrazu dla przykładu
+    networks:
+      - frontend
+  api:
+    image: alpine:latest # Prosta usługa jako przykład API
+    command: ["sleep", "infinity"]
+    networks:
+      - frontend
+      - backend
+  db:
+    image: alpine:latest # Prosta usługa jako przykład DB
+    command: ["sleep", "infinity"]
+    networks:
+      - backend
+
+networks:
+  frontend:
+  backend:

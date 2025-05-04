@@ -1,0 +1,15 @@
+# compose.override.yaml
+services:
+  webapp:
+    ports:
+      - "8080:80" # Mapowanie portu dla łatwego dostępu
+    volumes:
+      - ./webapp_src:/usr/share/nginx/html:ro # Montowanie kodu (read-only)
+    environment:
+      - NGINX_HOST=localhost
+      - NGINX_PORT=80
+
+  api:
+    environment:
+      - DEBUG=true
+    # Można dodać np. build: . jeśli API budowane jest lokalnie

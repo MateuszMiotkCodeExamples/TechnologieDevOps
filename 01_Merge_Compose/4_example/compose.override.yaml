@@ -1,0 +1,5 @@
+services:
+  app:
+    environment:
+      - OVERRIDE_VAR=override_value # Nadpisuje wartość dla tego klucza
+      - NEW_VAR=new_value # Dodaje nowy klucz

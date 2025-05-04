@@ -1,0 +1,7 @@
+# compose.yaml
+services:
+  web:
+    image: alpine:latest
+    command: ["sleep", "3600"] # Domyślna komenda
+    environment:
+      - MODE=base

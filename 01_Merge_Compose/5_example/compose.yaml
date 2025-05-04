@@ -1,0 +1,7 @@
+services:
+  datahandler:
+    image: alpine:latest
+    command: ["ls", "-l", "/data1", "/data2"]
+    volumes:
+      - ./source1:/data1 # Montowanie do /data1
+      - ./source_base:/data2 # Montowanie do /data2

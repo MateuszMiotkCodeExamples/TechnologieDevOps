@@ -1,0 +1,3 @@
+services:
+  myservice:
+    command: ["echo", "Overridden Command"] # Zastępuje poprzednią komendę

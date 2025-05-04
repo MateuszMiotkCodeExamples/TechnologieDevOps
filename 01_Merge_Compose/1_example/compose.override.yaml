@@ -1,0 +1,6 @@
+# compose.override.yaml
+services:
+  web:
+    command: ["echo", "Hello from Override!"] # Nadpisana komenda
+    environment:
+      - DEBUG=true # Dodana zmienna
