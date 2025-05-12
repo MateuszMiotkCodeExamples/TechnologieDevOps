@@ -4,7 +4,12 @@ pipeline {
         stage('Build') { // Przykładowa nazwa etapu, zmień jeśli trzeba
             steps {
                 echo "Hello world2" // Dodano krok: wykonanie polecenia 'make all'
-                // Lub po prostu 'make', jeśli 'all' jest domyślnym celem
+                sh 'javac App.java'// Lub po prostu 'make', jeśli 'all' jest domyślnym celem
+            }
+        }
+        stage('Run') {
+            steps {
+                sh 'java App'
             }
         }
 
