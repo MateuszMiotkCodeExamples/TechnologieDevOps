@@ -1,46 +1,32 @@
 pipeline {
     agent any
     stages {
-        stage('Przygotowanie') {
+        stage('Build') { // Przykładowa nazwa etapu, zmień jeśli trzeba
             steps {
-                // Checkout SCM jeśli potrzebne, np. git 'adres_repozytorium'
-                // Poniższe kroki zakładają, że kod jest w podfolderze 1_java_example
-            }
-        }
-        stage('Build') {
-            steps {
-                dir('1_java_example') {
-                    sh 'make all' // lub sh 'make'
-                }
+                sh 'make all' // Dodano krok: wykonanie polecenia 'make all'
+                // Lub po prostu 'make', jeśli 'all' jest domyślnym celem
             }
         }
         stage('Test') {
             steps {
-                dir('1_java_example') {
-                    sh 'make check'
-                }
+                sh 'make check'
             }
             post {
                 always {
-                    dir('1_java_example') {
-                        junit 'target/surefire-reports/*.xml'
-                    }
+                    junit 'target/surefire-reports/*.xml'
                 }
             }
         }
         stage('Archive Artifact') {
             steps {
-                dir('1_java_example') {
-                    archiveArtifacts artifacts: 'target/app.jar', fingerprint: true
-                }
+                archiveArtifacts artifacts: 'target/app.jar', fingerprint: true
             }
         }
-        stage('Deploy') {
+        stage('Publish') { // Jeśli masz taki etap
             steps {
-                dir('1_java_example') {
-                    sh 'make publish'
-                }
+                sh 'make publish'
             }
         }
+        // ... inne etapy
     }
 }
