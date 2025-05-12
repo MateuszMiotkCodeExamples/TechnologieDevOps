@@ -1,0 +1,46 @@
+pipeline {
+    agent any
+    stages {
+        stage('Przygotowanie') {
+            steps {
+                // Checkout SCM jeśli potrzebne, np. git 'adres_repozytorium'
+                // Poniższe kroki zakładają, że kod jest w podfolderze 1_java_example
+            }
+        }
+        stage('Build') {
+            steps {
+                dir('1_java_example') {
+                    sh 'make all' // lub sh 'make'
+                }
+            }
+        }
+        stage('Test') {
+            steps {
+                dir('1_java_example') {
+                    sh 'make check'
+                }
+            }
+            post {
+                always {
+                    dir('1_java_example') {
+                        junit 'target/surefire-reports/*.xml'
+                    }
+                }
+            }
+        }
+        stage('Archive Artifact') {
+            steps {
+                dir('1_java_example') {
+                    archiveArtifacts artifacts: 'target/app.jar', fingerprint: true
+                }
+            }
+        }
+        stage('Deploy') {
+            steps {
+                dir('1_java_example') {
+                    sh 'make publish'
+                }
+            }
+        }
+    }
+}
