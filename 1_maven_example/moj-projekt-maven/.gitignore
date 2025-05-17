@@ -1,0 +1,26 @@
+# Pliki generowane przez środowiska IDE
+.idea/
+*.iml
+*.ipr
+*.iws
+.project
+.classpath
+.settings/
+target/
+nbproject/
+build/
+
+# Pliki logów
+*.log
+
+# Pliki tymczasowe
+*.tmp
+
+# Archiwa
+*.jar
+*.war
+*.ear
+
+# Pliki systemowe
+.DS_Store
+Thumbs.db
