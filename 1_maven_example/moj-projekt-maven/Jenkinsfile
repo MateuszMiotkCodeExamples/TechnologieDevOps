@@ -1,0 +1,25 @@
+pipeline {
+    agent {
+        docker {
+            image 'maven:latest'
+            args '-v /var/jenkins_home/.m2:/root/.m2'
+        }
+    }
+    stages {
+        stage('Checkout') { // <-- Nowy etap pobierania kodu
+            steps {
+                echo 'Pobieranie kodu źródłowego...'
+                // Zakłada, że SCM (np. Git) jest skonfigurowany w zadaniu Jenkins
+                checkout scm
+            }
+        }
+        stage('Build') {
+            steps {
+                echo "Budowanie projektu w katalogu: ${pwd()}"
+                // Upewnij się, że pom.xml jest w tym katalogu
+                sh 'ls -la' // Wyświetl zawartość katalogu, aby sprawdzić obecność pom.xml
+                sh 'mvn -B -Dmaven.repo.local=/root/.m2 clean install'
+            }
+        }
+    }
+}
