@@ -1,0 +1,11 @@
+# Zapytanie PromQL obliczające średnią 5-minutową stopę (rate) żądań HTTP na sekundę
+# dla metryki http_requests_total, z podziałem na metodę HTTP i ścieżkę (path).
+rate(http_requests_total[5m])
+
+# Zapytanie PromQL wybierające wszystkie instancje metryki server_temperature_celsius,
+# gdzie temperatura przekracza 60 stopni.
+server_temperature_celsius > 60
+
+# Zapytanie PromQL pokazujące 95. percentyl czasu odpowiedzi żądania
+# dla usługi 'my_api' w ciągu ostatniej godziny.
+histogram_quantile(0.95, sum(rate(api_request_duration_seconds_bucket{service="my_api"}[1h])) by (le)) 

@@ -1,0 +1,21 @@
+{
+  "name": "prometheus-example",
+  "version": "1.0.0",
+  "description": "Przykłady użycia Prometheus z Node.js",
+  "main": "metrics-server.js",
+  "scripts": {
+    "start:server": "node metrics-server.js",
+    "start:client-lib-usage": "node client-library-usage.js",
+    "start:push-gateway-job": "node push-gateway-job.js",
+    "start:metric-structure": "node metric-structure.js"
+  },
+  "dependencies": {
+    "express": "^4.18.2",
+    "prom-client": "^14.2.0"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "nodemon": "^3.1.10"
+  }
+}
